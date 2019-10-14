@@ -14,7 +14,8 @@ public class Main {
     public static void menu() {
     	
 		try {
-			
+			System.out.println();
+			System.out.println();
 			System.out.println("Welcome to LP Batch Management System Application");
 			System.out.println("  ---------**********Login***********--------- ");
 			System.out.println();
@@ -28,16 +29,17 @@ public class Main {
 		role=scanner.nextInt();
 		switch(role) 
 		{
+		default:System.out.println("*************Please Select valid Role**************");
+		System.out.println();
+		System.out.println();
+		menu();
 		case 1:LoginView.adminLogin();
 		break;
 		case 2:LoginView.mentorLogin();
 		break;
 		case 3:LoginView.lpLogin();
 			break;
-			default:System.out.println("*************Please Select valid Role**************");
-			System.out.println();
-			System.out.println();
-			menu();
+			
 			case 0:exit();
 			break;
 		}

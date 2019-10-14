@@ -9,7 +9,7 @@ public class Mentor {
 	private String role_type;
 	private String batch_name;
 	
-	public String getFirst_Name() {
+	public static String getFirst_Name() {
 		return first_Name;
 	}
 	public void setFirst_Name(String first_Name) {

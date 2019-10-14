@@ -2,6 +2,7 @@ package com.virtusa.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import com.virtusa.integrate.ConnectionManager;
 
@@ -17,17 +18,16 @@ public  class AdminDaoImpl implements AdminDAO {
 			PreparedStatement statement = connection.prepareStatement("select admin_id, admin_Password from adminLogin where admin_Id=? and admin_Password=?");
 			statement.setString(1, adminId);
 			statement.setString(2, adminPassword);
- 			int results=statement.executeUpdate();
+ 			ResultSet results=statement.executeQuery();
 			//ResultSet results=statement.executeQuery();
 			//System.out.println(results);
-			 ConnectionManager.closeConnection();
-			 if(results==1) {
-				
+			 if(results.next()) {
+				ConnectionManager.closeConnection();
 				 return true;
 			 }else {
-				 //System.out.println("false");
+				// System.out.println("false");
 				 return false;
-			 }
+			 } 
 	}
 			
 }

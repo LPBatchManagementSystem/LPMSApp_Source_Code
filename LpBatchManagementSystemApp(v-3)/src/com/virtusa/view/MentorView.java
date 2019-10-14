@@ -1,6 +1,17 @@
 package com.virtusa.view;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.Date;
 import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.sql.Connection;
+import java.sql.SQLException;
 
+import com.virtusa.entities.Mentor;
+import com.virtusa.integrate.ConnectionManager;
+import com.virtusa.model.MentorModel;
 import com.virtusa.service.MentorService;
 
 public class MentorView 
@@ -214,10 +225,79 @@ public class MentorView
 		}
 		public static void view_Mentor_Details() {
 			System.out.println("***View Your Details***");
+			try{  
+	        	 
+	        	 Connection connection=ConnectionManager.openConnection();  
+	        	 PreparedStatement stmt=connection.prepareStatement("select * from mentordetails where Mentor_id=?");
+	        	 stmt.setString(1, MentorModel.getMentorId());
+	        	 ResultSet rs=stmt.executeQuery();  
+	        	 System.out.println("--------------------");
+		     		System.out.println("*****My Profile*****");
+		     		System.out.println("---------------------");
+		     		while(rs.next())
+		     		{
+		     		System.out.println("Mentor Id -:"+rs.getString(1));
+		     		System.out.println("Name -:" +rs.getString(2)+ " "+rs.getString(3));
+		     		System.out.println("Date of Birth -:"  +rs.getDate(4));
+		     		System.out.println("Phone Number-:" +rs.getInt(5));
+		     		System.out.println("Email -:"  +rs.getString(6));
+		     		System.out.println("Designation -:" +rs.getString(7));
+		     		System.out.println("Batch Id -:"  +rs.getString(8));
+		     		System.out.println("________________________");
+		     		}  
+		     		connection.close(); 
+	        	 }catch(Exception e){ System.out.println(e);}  
 			MentorView.mentorProfile();
 		}
 		public static void edit_Mentor_Details() {
 			System.out.println("***Edit your Details***");
+			try {
+			 
+		      System.out.println("First Name: ");
+		      String first_Name=scanner.next();
+		      System.out.println("Last Name: ");
+		      String last_Name=scanner.next();
+		      System.out.println("Date Of Birth: ");
+		      String dob=scanner.next();
+		      System.out.println("Phone Number: ");
+		      int phone_no =scanner.nextInt();
+		      System.out.println("Email Id: ");
+		      String email_Id=scanner.next();
+		      Connection connection=ConnectionManager.openConnection();
+		      PreparedStatement stmt=connection.prepareStatement( "UPDATE MentorDetails SET First_name=? and set Last_name=? and set DOB=? and set Phone_number=? and set Email=? Where Mentor_id=?");
+		    
+		      stmt.setString(1,first_Name );
+		      stmt.setString(2,last_Name );
+		      stmt.setString(3, dob);
+		      stmt.setInt(4, phone_no);
+		      stmt.setString(5, email_Id);
+		      stmt.setString(6, MentorModel.getMentorId());
+		      int rs = stmt.executeUpdate();
+
+		      /*while(rs==1){
+		    	  System.out.println("--------------------");
+		     		System.out.println("*****My Profile*****");
+		     		System.out.println("---------------------");
+		      }*/
+		     		//while(rs==1)
+		     		//{
+		      PreparedStatement ps1= connection.prepareStatement("select * from mentordetails where Mentor_id = ?");
+		      ps1.setString(1, MentorModel.getMentorId());
+		      ResultSet rs1 = ps1.executeQuery();
+		      while(rs1.next()) {
+		    	  System.out.println("details updated!!");
+		    	  Thread.sleep(700);
+		     		System.out.println("Mentor Id -:"+rs1.getString(1));
+		     		System.out.println("Name -:" +rs1.getString(2)+ " "+rs1.getString(3));
+		     		System.out.println("Date of Birth -:"  +rs1.getDate(4));
+		     		System.out.println("Phone Number-:" +rs1.getInt(5));
+		     		System.out.println("Email -:"  +rs1.getString(6));
+		     		System.out.println("Designation -:" +rs1.getString(7));
+		     		System.out.println("Batch Id -:"  +rs1.getString(8));
+		     		System.out.println("________________________");
+		     		}  
+		      
+			}catch(Exception e){ System.out.println(e);}
 			MentorView.mentorProfile();
 		}
 		public static void create_New_Batch() {
@@ -237,7 +317,29 @@ public class MentorView
 
 		public static void view_Lp_Details() {
 			         System.out.println("***View Lp Details***");
+			         try{  
+			        	 
+			        	 Connection connection=ConnectionManager.openConnection();  
+			        	 java.sql.Statement stmt=connection.createStatement();  
+			        	 ResultSet rs=stmt.executeQuery("select * from lpdetails"); 
+			             System.out.println("--------------------");
+			     		System.out.println("DETAILS OF LP");
+			     		System.out.println("---------------------");
+			     		while(rs.next())/**If Record Is Present In DataBase The Display Student Information */
+			     		{
+			     		
+			     		System.out.println("LP Id -:"+rs.getString(1));
+			     		System.out.println("Name -:" +rs.getString(2)+ " "+rs.getString(3));
+			     		System.out.println("Date of Birth -:"  +rs.getDate(4));
+			     		System.out.println("Phone Number-:" +rs.getInt(5));
+			     		System.out.println("Email -:"  +rs.getString(6));
+			     		System.out.println("Designation -:" +rs.getString(7));
+			     		System.out.println("Batch Id -:"  +rs.getString(8));
+			     		System.out.println("________________________");
+			     		}  
+			        	 connection.close();  
+			        	 }catch(Exception e){ System.out.println(e);} 
 			         MentorView.all_Lps();
-			}
-		
-	}
+		   }
+       }
+	

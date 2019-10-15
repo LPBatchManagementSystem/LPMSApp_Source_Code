@@ -1,9 +1,10 @@
 package com.virtusa.model;
 
 public class LpModel {
-	private String lpId;
+	private static  String lpId;
 	private String lpPassword;
-	public String getLpId() {
+	
+	public static String getLpId() {
 		return lpId;
 	}
 	public void setLpId(String lpId) {

@@ -3,13 +3,13 @@ package com.virtusa.entities;
 public class Mentor {
 	private String first_Name;
 	private String last_Name;
-	private int DOB;
+	private String DOB;
 	private long phone_number;
 	private String email_Id;
 	private String role_type;
 	private String batch_name;
 	
-	public static String getFirst_Name() {
+	public  String getFirst_Name() {
 		return first_Name;
 	}
 	public void setFirst_Name(String first_Name) {
@@ -21,10 +21,10 @@ public class Mentor {
 	public void setLast_Name(String last_Name) {
 		this.last_Name = last_Name;
 	}
-	public int getDOB() {
+	public String getDOB() {
 		return DOB;
 	}
-	public void setDOB(int dOB) {
+	public void setDOB(String dOB) {
 		DOB = dOB;
 	}
 	public long getPhone_number() {

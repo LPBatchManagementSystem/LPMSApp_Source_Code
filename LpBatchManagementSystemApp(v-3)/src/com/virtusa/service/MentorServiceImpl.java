@@ -19,8 +19,7 @@ public class MentorServiceImpl implements MentorService {
 		// TODO Auto-generated method stub
 		boolean mentorValid = false;
 		try {
-			mentorValid=
-				 mentorDAO.mentorAuth(mentorModel.getMentorId(), mentorModel.getMentorPassword());
+			mentorValid=mentorDAO.mentorAuth(mentorModel.getMentorId(), mentorModel.getMentorPassword());
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -3,7 +3,7 @@ package com.virtusa.entities;
 public class Lp {
 	private String first_Name;
 	private String last_Name;
-	private int DOB;
+	private String DOB;
 	private long phone_number;
 	private String email_Id;
 	private String role_type;
@@ -21,10 +21,10 @@ public class Lp {
 	public void setLast_Name(String last_Name) {
 		this.last_Name = last_Name;
 	}
-	public int getDOB() {
+	public String getDOB() {
 		return DOB;
 	}
-	public void setDOB(int dOB) {
+	public void setDOB(String dOB) {
 		DOB = dOB;
 	}
 	public long getPhone_number() {

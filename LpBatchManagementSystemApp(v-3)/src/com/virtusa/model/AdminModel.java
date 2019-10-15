@@ -1,9 +1,9 @@
 package com.virtusa.model;
 
 public class AdminModel {
-	private String adminId;
+	private static String adminId;
 	private String AdminPassword;
-	public String getAdminId() {
+	public static String getAdminId() {
 		return adminId;
 	}
 	public void setAdminId(String adminId) {

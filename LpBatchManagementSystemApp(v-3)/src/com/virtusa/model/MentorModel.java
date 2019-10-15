@@ -1,7 +1,7 @@
 package com.virtusa.model;
 
 public class MentorModel {
-	private static String mentorId;
+	private static  String mentorId;
 	private String mentorPassword;
 	public static String getMentorId() {
 		return mentorId;

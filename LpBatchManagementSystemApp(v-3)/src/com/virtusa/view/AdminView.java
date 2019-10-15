@@ -1,7 +1,14 @@
 package com.virtusa.view;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.Scanner;
 
+import com.virtusa.integrate.ConnectionManager;
+import com.virtusa.model.AdminModel;
+import com.virtusa.model.LpModel;
+import com.virtusa.model.MentorModel;
 import com.virtusa.service.AdminService;
 
 public class AdminView {
@@ -196,12 +203,66 @@ public class AdminView {
     }
   }
 	public static void view_Admin_Details() {
-		System.out.println("View My Profile");
+		System.out.println("***View Your Details***");
+		try{ 
+        	 Connection connection=ConnectionManager.openConnection();  
+        	 PreparedStatement stmt=connection.prepareStatement("select * from Admindetails where admin_id=?");
+        	 stmt.setString(1, AdminModel.getAdminId());
+        	 ResultSet rs=stmt.executeQuery();  
+        	 System.out.println("--------------------");
+	     		System.out.println("*****My Profile*****");
+	     		System.out.println("---------------------");
+	     		while(rs.next())
+	     		{
+	     		System.out.println("Admin Id -:"+rs.getString(1));
+	     		System.out.println("Name -:" +rs.getString(2)+ " "+rs.getString(3));
+	     		System.out.println("Date of Birth -:"  +rs.getDate(4));
+	     		System.out.println("Phone Number-:" +rs.getInt(5));
+	     		System.out.println("Email -:"  +rs.getString(6));
+	     		System.out.println("Designation -:" +rs.getString(7));
+	     		System.out.println("________________________");
+	     		}  
+	     		connection.close(); 
+        	 }catch(Exception e){ System.out.println(e);}  
 		AdminView.adminProfile();
 	}
 
 	public static void edit_Admin_Details() {
 		System.out.println("Edit My Profile");
+		try{  
+			Scanner scanner =new Scanner(System.in);
+			Connection connection=ConnectionManager.openConnection();
+			
+        	 PreparedStatement stmt=connection.prepareStatement("UPDATE AdminDetails SET first_name=?,last_name=?,dob=?,phone_number=?, email=?  Where admin_id=? ");
+        	 System.out.println("Enter First Name: ");
+        	 String first_Name=scanner.next();
+        	 System.out.println("Enter Last Name: ");
+        	 String last_Name=scanner.next();
+        	 System.out.println("Enter Date Of Birth: ");
+        	 String dOB=scanner.next();
+        	 System.out.println("Enter Phone Number: ");
+        	 int phone_Number=scanner.nextInt();
+        	 System.out.println("Enter Email Id: ");
+        	 String email=scanner.next();
+        	 stmt.setString(1,first_Name);
+        	 stmt.setString(2,last_Name );
+        	 stmt.setString(3, dOB);
+        	 stmt.setInt(4, phone_Number);
+        	 stmt.setString(5,email );
+        	 stmt.setString(6, AdminModel.getAdminId());
+        	 int rs=stmt.executeUpdate(); 
+        	 if(rs > 0)
+        	 {
+        	System.out.println("Record Updated Successfully");
+        	 }
+        	 else
+        	 {
+        	  System.out.println("There is a problem in updating Record.");
+        	 } 
+        	 System.out.println("******Updated Profile******");
+        	 view_Admin_Details();
+ 		connection.close(); 
+	 }catch(Exception e){ System.out.println(e);} 
 		AdminView.adminProfile();
 	}
 
@@ -217,6 +278,28 @@ public class AdminView {
 
 	public static void view_Mentor_Details() {
 		System.out.println("View Mentor Details");
+		try{  
+       	 
+       	 Connection connection=ConnectionManager.openConnection();  
+       	 java.sql.Statement stmt=connection.createStatement();  
+       	 ResultSet rs=stmt.executeQuery("select * from mentordetails"); 
+            System.out.println("--------------------");
+    		System.out.println("DETAILS OF MENTOR");
+    		System.out.println("---------------------");
+    		while(rs.next())/**If Record Is Present In DataBase The Display Student Information */
+    		{
+    		
+    		System.out.println("Mentor Id -:"+rs.getString(1));
+    		System.out.println("Name -:" +rs.getString(2)+ " "+rs.getString(3));
+    		System.out.println("Date of Birth -:"  +rs.getDate(4));
+    		System.out.println("Phone Number-:" +rs.getInt(5));
+    		System.out.println("Email -:"  +rs.getString(6));
+    		System.out.println("Designation -:" +rs.getString(7));
+    		System.out.println("Batch Id -:"  +rs.getString(8));
+    		System.out.println("________________________");
+    		}  
+       	 connection.close();  
+       	 }catch(Exception e){ System.out.println(e);} 
 		AdminView.mentor_Tasks();
 	}
 
